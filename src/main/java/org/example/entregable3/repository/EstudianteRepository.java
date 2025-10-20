@@ -13,6 +13,9 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Integer>
     @Query("SELECT e FROM Estudiante e WHERE e.lu = :eLu")
     Estudiante obtenerEstudiantePorNumeroLibreta(int eLu);
 
+    @Query("SELECT e FROM Estudiante e Where e.dni=:dni")
+    Estudiante obtenerEstudiantePorDni(int dni);
+
     @Query("SELECT e FROM Estudiante e WHERE e.genero LIKE :genero")
     List<Estudiante> findByGender(String genero);
 }

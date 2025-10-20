@@ -32,8 +32,9 @@ public class EstudianteCarreraController {
     }
 
     @PostMapping()
-    public ResponseEntity<EstudianteCarrera> createEstudianteCarrera(@RequestBody EstudianteCarreraDTO ecDTO) {
-        EstudianteCarrera saved = service.save(ecDTO);
+    public ResponseEntity<EstudianteCarreraDTO> createEstudianteCarrera(@RequestBody EstudianteCarreraDTO ecDTO) {
+        EstudianteCarreraDTO saved = (service.save(ecDTO));
+
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
@@ -54,4 +55,6 @@ public class EstudianteCarreraController {
     public ResponseEntity<List<ReporteCarreraDTO>> reporteCarreras() {
         return ResponseEntity.ok(service.getReporteCarreras());
     }
+
+
 }

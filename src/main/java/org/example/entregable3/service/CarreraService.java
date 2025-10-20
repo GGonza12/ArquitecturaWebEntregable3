@@ -35,6 +35,12 @@ public class CarreraService {
                 .collect(Collectors.toList());
     }
 
+    public CarreraDTO getCarreraById(Integer id) {
+        Carrera carrera = carreraRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Carrera no encontrada"));
+        return toDTO(carrera);
+    }
+
     public CarreraService(CarreraRepository carreraRepository) {
         this.carreraRepository = carreraRepository;
     }
@@ -54,12 +60,13 @@ public class CarreraService {
         return carreraRepository.save(carrera);
     }
 
-    public Carrera update(Integer id, Carrera datosActualizados) {
+    public CarreraDTO update(Integer id, Carrera datosActualizados) {
         return carreraRepository.findById(id)
             .map(c -> {
                 c.setCarrera(datosActualizados.getCarrera());
                 c.setDuracion(datosActualizados.getDuracion());
-                return carreraRepository.save(c);
+                Carrera cd = carreraRepository.save(c);
+                return toDTO(cd);
             })
             .orElseThrow(() -> new NoSuchElementException("Carrera no encontrada con id: " + id));
     }
@@ -69,5 +76,12 @@ public class CarreraService {
             throw new NoSuchElementException("Carrera no encontrada con id: " + id);
         }
         carreraRepository.deleteById(id);
+    }
+
+      public CarreraDTO toDTO(Carrera c){
+        return new CarreraDTO(
+                c.getCarrera(),
+                c.getDuracion()
+        );
     }
 }

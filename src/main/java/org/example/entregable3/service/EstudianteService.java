@@ -23,6 +23,7 @@ public class EstudianteService {
         return repo.findAll().stream().map(this::toDto).collect(Collectors.toList());
     }
 
+
     public Estudiante save(EstudianteDTO e){
        return repo.save(new Estudiante(e.getDni(),e.getNombre(),e.getApellido(),e.getEdad(),e.getGenero(),e.getCiudad(),e.getNroLibreta()));
     }
@@ -38,6 +39,11 @@ public class EstudianteService {
         return repo.findById(id);
     }
 
+    public EstudianteDTO obtenerEstudiantePorDni(int dni){
+        Estudiante e = repo.obtenerEstudiantePorDni(dni);
+        return e == null ? null : toDto(e);
+    }
+
 
     public EstudianteDTO obtenerEstudiantePorNumeroLibreta(int lu) {
         Estudiante e = repo.obtenerEstudiantePorNumeroLibreta(lu);
@@ -49,6 +55,19 @@ public class EstudianteService {
                 .stream()
                 .map(this::toDto)
                 .collect(Collectors.toList());
+    }
+
+    public EstudianteDTO update(int dni, EstudianteDTO dto) {
+        Estudiante estudiante = repo.findById(dni)
+            .orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
+        estudiante.setNombre(dto.getNombre());
+        estudiante.setApellido(dto.getApellido());
+        estudiante.setEdad(dto.getEdad());
+        estudiante.setGenero(dto.getGenero());
+        estudiante.setCiudad(dto.getCiudad());
+        estudiante.setLu(dto.getNroLibreta());
+        Estudiante updated = repo.save(estudiante);
+        return toDto(updated);
     }
 
     private EstudianteDTO toDto(Estudiante e) {

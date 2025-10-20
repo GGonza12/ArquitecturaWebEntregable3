@@ -12,44 +12,43 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/carrera")
+@RequestMapping("/carreras")
 public class CarreraController {
 
-    private final CarreraService service;
+    private final CarreraService carreraService;
 
     public CarreraController(CarreraService service) {
-        this.service = service;
+        this.carreraService = service;
     }
 
     @GetMapping
     public ResponseEntity<List<CarreraDTO>> listar() {
-        return ResponseEntity.ok(service.findAll());
+        return ResponseEntity.ok(carreraService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Carrera> obtenerPorId(@PathVariable Integer id) {
-        Optional<Carrera> c = service.findById(id);
-        return c.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<CarreraDTO> getCarrera(@PathVariable Integer id) {
+        CarreraDTO dto = carreraService.getCarreraById(id);
+        return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/nombre/{name}")
     public ResponseEntity<Carrera> obtenerPorNombre(@PathVariable String name) {
-        Carrera c = service.getCarreraPorNombre(name);
+        Carrera c = carreraService.getCarreraPorNombre(name);
         if (c == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(c);
     }
 
     @PostMapping
     public ResponseEntity<Carrera> crear(@RequestBody Carrera carrera) {
-        Carrera saved = service.save(carrera);
+        Carrera saved = carreraService.save(carrera);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Carrera> actualizar(@PathVariable Integer id, @RequestBody Carrera datos) {
+    public ResponseEntity<CarreraDTO> actualizar(@PathVariable Integer id, @RequestBody Carrera datos) {
         try {
-            Carrera updated = service.update(id, datos);
+            CarreraDTO updated = carreraService.update(id, datos);
             return ResponseEntity.ok(updated);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
@@ -59,7 +58,7 @@ public class CarreraController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
         try {
-            service.deleteById(id);
+            carreraService.deleteById(id);
             return ResponseEntity.noContent().build();
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
@@ -69,7 +68,7 @@ public class CarreraController {
     // Endpoint que devuelve la lista de DTOs con cantidad de inscriptos
     @GetMapping("/inscriptos")
     public ResponseEntity<List<CarreraInscriptosDTO>> obtenerCarrerasConInscriptos() {
-        List<CarreraInscriptosDTO> lista = service.obtenerCarrerasConEstudiantesInscriptos();
+        List<CarreraInscriptosDTO> lista = carreraService.obtenerCarrerasConEstudiantesInscriptos();
         return ResponseEntity.ok(lista);
     }
 }

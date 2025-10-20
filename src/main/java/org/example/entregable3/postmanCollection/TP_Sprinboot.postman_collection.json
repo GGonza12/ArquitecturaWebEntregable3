@@ -1,0 +1,355 @@
+{
+	"info": {
+		"_postman_id": "643a2456-c39b-414a-999f-3d8d85589d6b",
+		"name": "TP_Sprinboot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17975225"
+	},
+	"item": [
+		{
+			"name": "GetCarreras",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Base_URL}}/carreras",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"carreras"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostCarrera",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id_carrera\": 16,\r\n  \"carrera\": \"Testing\",\r\n  \"duracion\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/carreras",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"carreras"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "PostCarrera",
+					"originalRequest": {
+						"method": "GET",
+						"header": []
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Get-estudianteCarrera",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Base_URL}}/estudianteCarrera",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"estudianteCarrera"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dar de alta estudiante",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dni\": 421321321,\r\n    \"nombre\": \"Test\",\r\n    \"apellido\" : \"Post\",\r\n    \"edad\": 23,\r\n    \"genero\":\"male\",\r\n    \"ciudad\": \"Tandil\",\r\n    \"nroLibreta\": 432143\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/estudiantes",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"estudiantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Matricular Estudiante",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id_estudiante\": 421321321,\r\n    \"id_carrera\": 1,\r\n    \"inscripcion\" : \"2025-10-16\",\r\n    \"graduacion\": null,\r\n    \"antiguedad\":0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/estudianteCarrera",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"estudianteCarrera"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Estudiantes Por Apellido",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Base_URL}}/estudiantes/apellido",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"estudiantes",
+						"apellido"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Estudiante por libreta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Base_URL}}/estudiantes/libreta/{{lu}}",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"estudiantes",
+						"libreta",
+						"{{lu}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Estudiantes por genero",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Base_URL}}/estudiantes/genero/{{Genero}}",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"estudiantes",
+						"genero",
+						"{{Genero}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Carreras con estudiantes inscriptos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Base_URL}}/carreras/inscriptos",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"carreras",
+						"inscriptos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Estudiantes por carrera de determinada ciudad",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Base_URL}}/estudianteCarrera/carrera/{{idCarrera}}/ciudad/{{Ciudad}}",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"estudianteCarrera",
+						"carrera",
+						"{{idCarrera}}",
+						"ciudad",
+						"{{Ciudad}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener reporte de las carreras",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{Base_URL}}/estudianteCarrera/reporte",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"estudianteCarrera",
+						"reporte"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutCarrera",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"carrera\": \"Abogado\",\r\n    \"duracion\" : 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/carreras/2",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"carreras",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutEstudiante",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"MAX\",\r\n    \"apellido\" : \"POWER\",\r\n    \"edad\": 45,\r\n    \"genero\":\"MAX\",\r\n    \"ciudad\": \"Tandil\",\r\n    \"nroLibreta\": 32321\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/estudiantes/dni/421321321",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"estudiantes",
+						"dni",
+						"421321321"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "lu",
+			"value": ""
+		},
+		{
+			"key": "Base_URL",
+			"value": ""
+		},
+		{
+			"key": "Ciudad",
+			"value": ""
+		},
+		{
+			"key": "idCarrera",
+			"value": ""
+		},
+		{
+			"key": "Genero",
+			"value": ""
+		}
+	]
+}

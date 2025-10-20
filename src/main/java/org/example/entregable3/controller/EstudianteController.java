@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/estudiante")
+@RequestMapping("/estudiantes")
 public class EstudianteController {
 
     private final EstudianteService service;
@@ -29,9 +29,16 @@ public class EstudianteController {
     public ResponseEntity<List<EstudianteDTO>> listarPorApellido() {
         return ResponseEntity.ok(service.obtenerEstudiantesPorApellido());
     }
+    // GET /estudiante/dni/{dni}
+    @GetMapping("/dni/{dni}")
+    public ResponseEntity<EstudianteDTO> obtenerPorDni(@PathVariable int dni) {
+        EstudianteDTO dto = service.obtenerEstudiantePorDni(dni);
+        if (dto == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(dto);
+    }
 
-    // GET /estudiante/{lu}
-    @GetMapping("/{lu}")
+    // GET /estudiante/libreta/{lu}
+    @GetMapping("/libreta/{lu}")
     public ResponseEntity<EstudianteDTO> obtenerPorLu(@PathVariable int lu) {
         EstudianteDTO dto = service.obtenerEstudiantePorNumeroLibreta(lu);
         if (dto == null) return ResponseEntity.notFound().build();
@@ -49,6 +56,17 @@ public class EstudianteController {
     public ResponseEntity<Estudiante> create(@RequestBody EstudianteDTO dto) {
          Estudiante saved = service.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    }
+
+    //PUT /estudiante/{dni}
+    @PutMapping("/dni/{dni}")
+    public ResponseEntity<EstudianteDTO> actualizar(@PathVariable int dni, @RequestBody EstudianteDTO datos) {
+        try {
+            EstudianteDTO updated = service.update(dni, datos);
+            return ResponseEntity.ok(updated);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
